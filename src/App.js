@@ -1,24 +1,28 @@
-import logo from './logo.svg';
+// import logo from './logo.svg';
+import SearchBar from './SearchBar';
+import WeatherTable from './WeatherTable';
+import PreviousSearchesTable from './PreviousSearchesTable';
 import './App.css';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <body>
+        <div>
+          <SearchBar />
+          <WeatherTable />
+          <PreviousSearchesTable />
+        </div>
+      </body>
+      <footer class="footer bg-secondary py-3 mt-auto">
+        <div class="container">
+          Powered by <a href="https://www.weatherapi.com/" title="Free Weather API">WeatherAPI.com</a>
+          <a href="https://www.weatherapi.com/" title="Free Weather API"><img
+            src='//cdn.weatherapi.com/v4/images/weatherapi_logo.png' alt="Weather data by WeatherAPI.com"
+            border="0" /></a>
+        </div>
+      </footer>
+    </>
   );
 }
 
