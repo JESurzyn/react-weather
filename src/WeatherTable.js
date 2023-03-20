@@ -2,14 +2,13 @@
 
 function WeatherTable() {
     return (
-        <>
-        <div>
+        <div className="container my-5 p-4 border">
             <h3>
               Static's weather right now is Cloudy and Sunny
             </h3>
-            <table>
+            <table className="table border">
                 <thead>
-                    <tr>
+                    <tr className="table-success">
                         <th>Temperature (F)</th>
                         <th>Humidity</th>
                         <th>Precipitation</th>
@@ -34,7 +33,6 @@ function WeatherTable() {
                 </tbody>
             </table>
         </div>
-        </>
     )
 
 }
