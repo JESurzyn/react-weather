@@ -1,5 +1,5 @@
 //import './PreviousSearchesTable.css';
-import PreviousSearchesLink from "./PreviousSearchLink";
+import PreviousSearchesLink from "./PreviousSearchesLink";
 
 function PreviousSearchesTable() {
     return (
