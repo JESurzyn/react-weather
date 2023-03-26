@@ -1,10 +1,10 @@
 //import './WeatherTable.js'
 
-function WeatherTable() {
+function WeatherTable({weatherLocationData}) {
     return (
         <div className="container my-5 p-4 border">
             <h3>
-              Static's weather right now is Cloudy and Sunny
+              {weatherLocationData.locationName} right now is {weatherLocationData.generalDescription}
             </h3>
             <table className="table border">
                 <thead>
@@ -18,16 +18,16 @@ function WeatherTable() {
                 <tbody>
                     <tr>
                         <td>
-                            1,000 &#176;
+                            {weatherLocationData.forecast.temperature} &#176;
                         </td>
                         <td>
-                            200%
+                            {weatherLocationData.forecast.humidity}%
                         </td>
                         <td>
-                            400 in.
+                            {weatherLocationData.forecast.precipitation} in.
                         </td>
                         <td>
-                            130%
+                            {weatherLocationData.forecast.cloudCover}%
                         </td>
                     </tr>
                 </tbody>

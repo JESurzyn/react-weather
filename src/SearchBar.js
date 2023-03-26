@@ -2,7 +2,7 @@
 import {useState} from 'react'
 import ErrorFlash from './ErrorFlash';
 
-function SearchBar() {
+function SearchBar({onLocationTextClick}) {
     const [inputField, setInputField] = useState({
         location:''
     })
@@ -11,8 +11,9 @@ function SearchBar() {
         setInputField( {[evt.target.name]: evt.target.value})
     }
 
-    const submitButton = () => {
-        alert(inputField.location)
+    const submitButton = (evt) => {
+        evt.preventDefault();
+        onLocationTextClick(inputField.location)
     }
 
     return (
