@@ -13,7 +13,8 @@ function SearchBar({onLocationTextClick}) {
 
     const submitButton = (evt) => {
         evt.preventDefault();
-        onLocationTextClick(inputField.location)
+        onLocationTextClick(inputField.location);
+        setInputField({location:''});
     }
 
     return (
