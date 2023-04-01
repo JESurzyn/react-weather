@@ -1,20 +1,33 @@
 // import './SearchBar.css'
 import {useState} from 'react'
+import axios from 'axios'; 
 import ErrorFlash from './ErrorFlash';
 
-function SearchBar({onLocationTextClick}) {
+function SearchBar({setWeatherData}) {
     const [inputField, setInputField] = useState({
         location:''
     })
 
     const inputsHandler = (evt) => {
         setInputField( {[evt.target.name]: evt.target.value})
-    }
+    };
 
-    const submitButton = (evt) => {
+    
+    const submitButton = async (evt) => {
         evt.preventDefault();
-        onLocationTextClick(inputField.location);
-        setInputField({location:''});
+        const config = {params: {location:inputField.location }}
+        const res = await axios.get('http://localhost:5000/search', config);
+        // console.log(res);
+        // console.log(res.status);
+        // console.log(res.data);
+        // console.log(res.data.location);
+        if (res.status === 200) {
+            setWeatherData(res);
+        }
+        
+        
+        // setValidatedLocationText(inputField.location);
+        // setInputField({location:''});
     }
 
     return (
