@@ -48,17 +48,15 @@ function App() {
   return (
     <div className="container pt-3" id="mainContainer">
       <SearchBar 
-        setValidatedLocationText ={setLocationText}
+        // setValidatedLocationText ={setLocationText}
         setWeatherData={setWeatherData}/>
       {/* <WeatherTable 
         weatherData = {weatherData}
         locationText = {locationText} /> */}
-      {if (weatherData.status === 200) { }
         <WeatherTable 
           // weatherLocationData = {weatherData[locationText]} />
           weatherLocationData = {weatherData} />
         <PreviousSearchesTable />
-      { }
     </div>
   );
 }
