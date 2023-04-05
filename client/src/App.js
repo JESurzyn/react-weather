@@ -49,6 +49,7 @@ function App() {
     <div className="container pt-3" id="mainContainer">
       <SearchBar 
         // setValidatedLocationText ={setLocationText}
+        weatherLocationData = {weatherData}
         setWeatherData={setWeatherData}/>
       {/* <WeatherTable 
         weatherData = {weatherData}

@@ -56,7 +56,7 @@ app.get('/search', async (req, res, next) => {
         if(e.response.status === 400) {
             // req.flash('notFound', "Something went wrong, maybe the location you entered doesn't exist?");
 
-            res.status(e.response.status)
+            res.status(e.response.status).send(e.response.statusText);
             // res.redirect('/')
         } else {
             next(e)
