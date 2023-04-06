@@ -22,6 +22,7 @@ function SearchBar({ weatherData, setWeatherData }) {
             const res = await axios.get('http://localhost:5000/search', config);
             setWeatherData(res);
             setResponseCode('200')
+            setInputField({ location: '' })
         } catch(e) {
             console.log(e)
             // if(e.response.status === 400) {
@@ -29,6 +30,7 @@ function SearchBar({ weatherData, setWeatherData }) {
             // }
             setWeatherData({})
             setResponseCode('400')
+            setInputField({ location: '' })
         }
         // console.log(res);
 
