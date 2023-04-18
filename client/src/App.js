@@ -2,97 +2,57 @@
 import SearchBar from './SearchBar';
 import WeatherTable from './WeatherTable';
 import PreviousSearchesTable from './PreviousSearchesTable';
-import {useState } from 'react';
-// import './App.css';
+import {getWeatherData} from './GetWeather';
+import {useLoaderData} from 'react-router-dom'
+import { useEffect, useState } from 'react';
 
-let weatherDataTest = {
-  weatherData1: 
-    {
-      locationName: 'weatherData1',
-      generalDescription: 'Overcast',
-      forecast: {
-        temperature: '100',
-        humidity: '300',
-        precipitation: '20',
-        cloudCover: '180'
-      }
-    },
-  weatherData2:
-    {
-    locationName: 'weatherData2',
-    generalDescription: 'Sunny',
-    forecast: {
-      temperature: '200',
-      humidity: '20',
-      precipitation: '0',
-      cloudCover: '0'
-      }
-    },
-  weatherData3:
-    {
-    locationName: 'weatherData3',
-    generalDescription: 'Rainy',
-    forecast: {
-      temperature: '50',
-      humidity: '300',
-      precipitation: '100',
-      cloudCover: '100'
-      },
-    } 
+
+export async function loader({ request }) {
+  const url = new URL(request.url);
+  // console.log(url, ' this is the url in loader')
+  const location = url.searchParams.get('location');
+  if (location) {
+    const weatherData = await getWeatherData(location)
+    return weatherData
+  } else {
+    return null  
+  }
 }
 
-function App() {
-  // const [locationText, setLocationText] = useState('weatherData1');
-  const [weatherData, setWeatherData] = useState({});
-  // const [weatherState]
-  return (
-    <div className="container pt-3" id="mainContainer">
-      <SearchBar 
-        // setValidatedLocationText ={setLocationText}
-        weatherLocationData = {weatherData}
-        setWeatherData={setWeatherData}/>
-      {/* <WeatherTable 
-        weatherData = {weatherData}
-        locationText = {locationText} /> */}
-        <WeatherTable 
-          // weatherLocationData = {weatherData[locationText]} />
-          weatherLocationData = {weatherData} />
-        <PreviousSearchesTable />
-    </div>
-  );
+export default function App() {
+  const [show, setShow] = useState(false);
+  const weatherData = useLoaderData();
+
+  useEffect(() => {
+    if (weatherData && weatherData.status === 400) {
+        setShow(true)
+      } else {
+        setShow(false);
+    };
+    }, [weatherData])
+
+  if (weatherData) {
+    return (
+      <div className="container pt-3" id="mainContainer">
+        <SearchBar 
+          // responseCode = {weatherData.status}
+          show = {show} 
+          setShow = {setShow} />
+
+          <WeatherTable 
+            weatherLocationData = {weatherData} />
+          <PreviousSearchesTable />
+      </div>
+    );
+  } else {
+    return (
+      <div className="container pt-3" id="mainContainer">
+        <SearchBar 
+          // responseCode = {weatherData.status}
+          showError = {show} 
+          setShow = {setShow} />
+          <PreviousSearchesTable />
+      </div>
+    )
+  }
 }
-
-export default App;
-
-//just examples for basic fetching of backend api
-// import { useEffect, useState} from 'react';
-
-// function App() {
-//   const [backendData, setBackendData] = useState([{}])
-
-//   useEffect(() => {
-//     fetch("/api").then(
-//       response => response.json()
-//     ).then(
-//       data => {
-//         setBackendData(data)
-//       }
-//     )
-//   }, [])
-
-//   return (
-//     <div>
-
-//       {(typeof backendData.users === 'undefined') ? (
-//         <p>Loading...</p>
-//       ): (
-//         backendData.users.map((user, i) => (
-//           <p key={i}>{user}</p>
-//         ))
-//       )}
-//     </div>
-//   )
-
-// }
-
-// export default App;
