@@ -1,23 +1,18 @@
-import { useState } from 'react';
 import Alert from 'react-bootstrap/Alert';
-import Button from 'react-bootstrap/Button';
 
-function ErrorFlash({ responseCode }) {
-    const [show, setShow] = useState(true);
-
-    if (responseCode && responseCode === '400') {
-        if (show) {
-            return (
-                <Alert variant="danger" onClose={() => setShow(false)} dismissible>
-                    <Alert.Heading>Something went wrong</Alert.Heading>
-                    <p className="mb-0">
-                        maybe the location you entered doesn't exit?
-                    </p>
-                </Alert>
-            )
-        }
+// function ErrorFlash({responseCode}) {
+function ErrorFlash({show, setShow}) {
+    if (show) {
+        return (
+            <Alert variant="danger" onClose={() => setShow(false)} dismissible>
+                <Alert.Heading>Something went wrong</Alert.Heading>
+                <p className="mb-0">
+                    maybe the location you entered doesn't exit?
+                </p>
+            </Alert>
+        )
     } else {
-        return null
+    return null
     }
 }
 

@@ -2,11 +2,14 @@
 import ErrorFlash from './ErrorFlash';
 import {Form} from 'react-router-dom';
 
-function SearchBar() {
+// function SearchBar( {responseCode }) {
+function SearchBar( { show, setShow }) {
     return (
         <div className="container" id="search">
             {/* <ErrorFlash responseCode={responseCode}/> */}
-            <ErrorFlash />
+            <ErrorFlash 
+                show={show} 
+                setShow={setShow} />
             <h1>Find Today's Weather</h1>
             <Form id='search-form' role='search'>
                 <label htmlFor="location">Input City</label>
