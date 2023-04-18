@@ -3,6 +3,7 @@ import SearchBar from './SearchBar';
 import WeatherTable from './WeatherTable';
 import PreviousSearchesTable from './PreviousSearchesTable';
 import {getWeatherData} from './GetWeather';
+import addPreviousSearch from './AddPreviousSearch';
 import {useLoaderData} from 'react-router-dom'
 import { useEffect, useState } from 'react';
 
@@ -29,6 +30,8 @@ export default function App() {
       } else {
         setShow(false);
     };
+    // console.log(weatherData)
+    addPreviousSearch(weatherData.data.location);
     }, [weatherData])
 
   if (weatherData) {
