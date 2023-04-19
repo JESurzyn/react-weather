@@ -3,7 +3,7 @@ import SearchBar from './SearchBar';
 import WeatherTable from './WeatherTable';
 import PreviousSearchesTable from './PreviousSearchesTable';
 import {getWeatherData} from './GetWeather';
-import addPreviousSearch from './AddPreviousSearch';
+import addPreviousSearch from './PreviousSearches';
 import {useLoaderData} from 'react-router-dom'
 import { useEffect, useState } from 'react';
 
@@ -14,11 +14,14 @@ export async function loader({ request }) {
   const location = url.searchParams.get('location');
   if (location) {
     const weatherData = await getWeatherData(location)
+    addPreviousSearch(weatherData);
     return weatherData
   } else {
-    return null  
-  }
+    const weatherData = {}
+    return weatherData
+  }  
 }
+
 
 export default function App() {
   const [show, setShow] = useState(false);
@@ -31,7 +34,7 @@ export default function App() {
         setShow(false);
     };
     // console.log(weatherData)
-    addPreviousSearch(weatherData.data.location);
+    // addPreviousSearch(weatherData.data.location);
     }, [weatherData])
 
   if (weatherData) {

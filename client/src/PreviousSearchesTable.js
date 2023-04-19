@@ -1,5 +1,6 @@
 //import './PreviousSearchesTable.css';
 import PreviousSearchesLink from "./PreviousSearchesLink";
+// import clearStorage from "./PreviousSearches";
 
 function PreviousSearchesTable() {
     return (
@@ -12,7 +13,11 @@ function PreviousSearchesTable() {
                 <PreviousSearchesLink />
                 <PreviousSearchesLink />
             </div>
-            <button className="btn btn-secondary mt-3 btn-sm">Clear Searches</button>
+            <button 
+                className="btn btn-secondary mt-3 btn-sm"
+                onClick={() => localStorage.clear()}>
+                Clear Searches
+            </button>
         </div>
     )
 
