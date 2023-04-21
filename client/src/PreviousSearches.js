@@ -1,10 +1,11 @@
+import PreviousSearchesLink from "./PreviousSearchesLink";
 
-export default function addPreviousSearch(weatherData) {
+export function addPreviousSearch(weatherData) {
     if (weatherData && weatherData.status === 200) {
-        let key = 0
         const {location} = weatherData.data
         
         //if there is data already in localStorage
+        let key = 0
         if (localStorage.length > 0) {
 
             //checks if new location already matches any in localStorage
@@ -16,7 +17,7 @@ export default function addPreviousSearch(weatherData) {
             };
             // if there are fewer than 5 searches, adds the new location
             // onto the list
-            if (localStorage < 5) {
+            if (localStorage.length < 5) {
                 key = localStorage.length + 1
                 localStorage.setItem(key, location)
             } else {
@@ -48,6 +49,16 @@ export default function addPreviousSearch(weatherData) {
     }
 };
 
+
+export function pullLocalStorage() {
+    let locationList = []
+    for (let i=1; i < localStorage.length+1; i++) {
+        locationList.push(<PreviousSearchesLink
+                                key={i} 
+                                location={localStorage.getItem(i)}/>)
+    }
+    return locationList
+};
 // export function clearStorage() {
 //     localStorage.clear();
 // }
