@@ -11,21 +11,24 @@ import { useEffect, useState } from 'react';
 export async function loader({ request }) {
   const url = new URL(request.url);
   // console.log(url, ' this is the url in loader')
-  const location = url.searchParams.get('location');
+  let location = url.searchParams.get('location');
   let weatherData = {}
   if (location) {
     weatherData = await getWeatherData(location)
     addPreviousSearch(weatherData);
+  } else {
+    location = ""
   }
   const locationList = pullLocalStorage()
-  const loaderPayload = [locationList, weatherData]
+  const loaderPayload = [locationList, weatherData, location]
   return loaderPayload
 }
 
 
 export default function App() {
   const [show, setShow] = useState(false);
-  const [locationList,weatherData] = useLoaderData();
+  const [locationList,weatherData, location] = useLoaderData();
+  console.log(location)
 
   useEffect(() => {
     if (weatherData && weatherData.status === 400) {
@@ -41,7 +44,8 @@ export default function App() {
         <SearchBar 
           // responseCode = {weatherData.status}
           show = {show} 
-          setShow = {setShow} />
+          setShow = {setShow}
+          location = {location} />
 
           <WeatherTable 
             weatherLocationData = {weatherData} />
@@ -57,7 +61,7 @@ export default function App() {
           showError = {show} 
           setShow = {setShow} />
           <PreviousSearchesTable 
-            locationList = {locationList}/>
+            locationList = {locationList} />
       </div>
     )
   }
