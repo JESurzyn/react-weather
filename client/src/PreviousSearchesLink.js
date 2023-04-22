@@ -1,7 +1,8 @@
-function PreviousSearchesLink() {
+function PreviousSearchesLink({location}) {
+    const searchString = `?location=${location}`
     return (
         <div className="col">
-            <a href="search?location=New York">New York</a>
+            <a href={searchString}>{location}</a>
         </div>
     )
 }

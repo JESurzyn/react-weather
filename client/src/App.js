@@ -3,6 +3,7 @@ import SearchBar from './SearchBar';
 import WeatherTable from './WeatherTable';
 import PreviousSearchesTable from './PreviousSearchesTable';
 import {getWeatherData} from './GetWeather';
+import {addPreviousSearch, pullLocalStorage} from './PreviousSearches';
 import {useLoaderData} from 'react-router-dom'
 import { useEffect, useState } from 'react';
 
@@ -11,17 +12,20 @@ export async function loader({ request }) {
   const url = new URL(request.url);
   // console.log(url, ' this is the url in loader')
   const location = url.searchParams.get('location');
+  let weatherData = {}
   if (location) {
-    const weatherData = await getWeatherData(location)
-    return weatherData
-  } else {
-    return null  
+    weatherData = await getWeatherData(location)
+    addPreviousSearch(weatherData);
   }
+  const locationList = pullLocalStorage()
+  const loaderPayload = [locationList, weatherData]
+  return loaderPayload
 }
+
 
 export default function App() {
   const [show, setShow] = useState(false);
-  const weatherData = useLoaderData();
+  const [locationList,weatherData] = useLoaderData();
 
   useEffect(() => {
     if (weatherData && weatherData.status === 400) {
@@ -41,7 +45,8 @@ export default function App() {
 
           <WeatherTable 
             weatherLocationData = {weatherData} />
-          <PreviousSearchesTable />
+          <PreviousSearchesTable 
+            locationList = {locationList} />
       </div>
     );
   } else {
@@ -51,7 +56,8 @@ export default function App() {
           // responseCode = {weatherData.status}
           showError = {show} 
           setShow = {setShow} />
-          <PreviousSearchesTable />
+          <PreviousSearchesTable 
+            locationList = {locationList}/>
       </div>
     )
   }
